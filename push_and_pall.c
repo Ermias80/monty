@@ -14,7 +14,7 @@ void add_push(stack_t **hd, unsigned int count)
 		fprintf(stderr, "L%d: usage: push integer\n", count);
 		fclose(bus.file);
 		free(bus.content);
-		free_stack(*hd);
+		free_list(*hd);
 		exit(EXIT_FAILURE);
 	}
 	if (bus.arg[0] == '-')
@@ -33,14 +33,14 @@ void add_push(stack_t **hd, unsigned int count)
 		fprintf(stderr, "L%d: usage: push integer\n", count);
 		fclose(bus.file);
 		free(bus.content);
-		free_stack(*hd);
+		free_list(*hd);
 		exit(EXIT_FAILURE);
 	}
 	n = atoi(bus.arg);
 	if (bus.lifi == 0)
 		add_node(hd, n);
 	else
-		addqueue(hd, n);
+		add_queue(hd, n);
 }
 
 /**
