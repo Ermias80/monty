@@ -60,6 +60,7 @@ void pop(stack_t **hd, unsigned int count);
 void pint(stack_t **hd, unsigned int count);
 void swap(stack_t **hd, unsigned int count);
 void add(stack_t **hd, unsigned int count);
-
+void free_list(stack_t *hd);
+void add_node(stack_t **hd, int num);
 
 #endif
