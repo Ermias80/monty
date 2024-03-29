@@ -1,12 +1,12 @@
 #include "monty.h"
 
 /**
- * add_f - Adds the top two elements of the stack.
+ * add - Adds the top two elements of the stack.
  * @hd: Stack head
  * @count: Line number
  * Return: No return
  */
-void add_f(stack_t **hd, unsigned int count)
+void add(stack_t **hd, unsigned int count)
 {
 	stack_t *temp = *hd;
 	int len = 0, sum;
