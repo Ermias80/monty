@@ -64,4 +64,7 @@ void free_list(stack_t *hd);
 void add_node(stack_t **hd, int num);
 void add_queue(stack_t **hd, int num);
 int execute(char *content, stack_t **stack, unsigned int counter, FILE *file);
+void nod(stack_t **hd, unsigned int count);
+
+
 #endif
