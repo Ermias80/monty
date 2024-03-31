@@ -1,14 +1,12 @@
 #include "monty.h"
 
 /**
- * nod - no operation, does nothing
- * @hd: pointer to the head of the stack
- * @count: line number
- *
- * Return: no return value
+ * nop - No operation performed
+ * @hd: Double pointer to the top of a stack
+ * @num: Number of line current
  */
-void nod(stack_t **hd, unsigned int count)
+void nop(stack_t **hd, unsigned int num)
 {
 	(void)hd;
-	(void)count;
+	(void)num;
 }

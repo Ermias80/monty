@@ -1,5 +1,5 @@
-#ifndef _MONTY_H_
-#define _MONTY_H_
+#ifndef MONTY_H
+#define MONTY_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +16,7 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct stack_s
 {
@@ -24,56 +24,46 @@ typedef struct stack_s
 	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
-/**
- * struct bus_s - variables -args, file, line content
- * @arg: value
- * @file: pointer to monty file
- * @content: line content
- * @lifi: flag change stack <-> queue
- * Description: carries values through the program
- */
-typedef struct bus_s
-{
-	char *arg;
-	FILE *file;
-	char *content;
-	int lifi;
-}  bus_t;
-extern bus_t bus;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-
-void add_push(stack_t **hd, unsigned int count);
-void pall(stack_t **hd, unsigned int counter);
-void pop(stack_t **hd, unsigned int count);
-void pint(stack_t **hd, unsigned int count);
-void swap(stack_t **hd, unsigned int count);
-void add(stack_t **hd, unsigned int count);
+void push(stack_t **hd, int d);
+void pall(const stack_t *top);
+void pint(stack_t *hd, unsigned int num);
+void pop(stack_t **hd, unsigned int num);
+void swap(stack_t **hd, unsigned int num);
+void add(stack_t **hd, unsigned int num);
+void nop(stack_t **hd, unsigned int num);
+void sub(stack_t **hd, unsigned int num);
+void stack_div(stack_t **hd, unsigned int num);
+void mul(stack_t **hd, unsigned int num);
+void mod(stack_t **hd, unsigned int num);
+void pchar(stack_t **hd, unsigned int num);
+void pstr(stack_t **hd);
+void rotl(stack_t **hd);
+void rotr(stack_t **hd);
+void stack(stack_t **ptr, char *opcode, unsigned int num);
+int valid_int(const char *str);
+void queue(stack_t **rear, int n);
 void free_list(stack_t *hd);
-void add_node(stack_t **hd, int num);
-void add_queue(stack_t **hd, int num);
-int execute(char *content, stack_t **stack, unsigned int counter, FILE *file);
-void nod(stack_t **hd, unsigned int count);
-void sub(stack_t **hd, unsigned int count);
-void div(stack_t **hd, unsigned int count);
-void mul(stack_t **hd, unsigned int count);
-void mod(stack_t **hd, unsigned int count);
-void pchar(stack_t **hd, unsigned int count);
-void pstr(stack_t **hd, unsigned int count);
-void rotl(stack_t **head, __attribute__((unused)) unsigned int counter);
-void rotr(stack_t **head, __attribute__((unused)) unsigned int counter);
-void stack(stack_t **hd, unsigned int counter);
-void queue(stack_t **hd, unsigned int counter);
+void excute(stack_t **hd, char *opcode, unsigned int num);
+int main(int argc, char **argv);
+int FIFO;
 
-#endif
+#endif /* MONTY_H */
+
+
+
+
+

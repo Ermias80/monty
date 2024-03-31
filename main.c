@@ -1,44 +1,40 @@
 #include "monty.h"
 
-#define MAX_LINE_LENGTH 1024
-
-bus_t bus = {NULL, NULL, NULL, 0};
-
-int main(int argc, char *argv[])
+/**
+ * main - entry point to monty code interpreter
+ * @argc: argument counter
+ * @argv: argument vector
+ * Return: 0 on success
+ */
+int main(int argc, char **argv)
 {
-	char line[MAX_LINE_LENGTH];
+	char *opcode = NULL, line[1024], *delim = " \n\t\r";
+	unsigned int lin_num = 1;
+	stack_t *top = NULL;
 	FILE *file;
-	ssize_t read_line = 1;
-	stack_t *stack = NULL;
-	unsigned int counter = 0;
 
-       	if (argc != 2)
+	FIFO = 0;
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	file = fopen(argv[1], "r");
-	bus.file = file;
 	if (!file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
-	while (read_line > 0)
+	for (; fgets(line, sizeof(line), file) != NULL; lin_num++)
 	{
-		if (fgets(line, MAX_LINE_LENGTH, file) == NULL)
-		{
-			break;
-		}
-		read_line = strlen(line);
-		bus.content = line;
-		counter++;
-		if (read_line > 0)
-		{
-			execute(line, &stack, counter, file);
-		}
+		opcode = strtok(line, delim);
+		if (!opcode)
+			continue;
+		if (opcode[0] == '#')
+			continue;
+		stack(&top, opcode, lin_num);
 	}
-	free_list(stack);
 	fclose(file);
+	free_list(top);
 	return (0);
 }

@@ -1,53 +1,47 @@
 #include "monty.h"
-/**
-* execute - executes the opcode
-* @stack: head linked list - stack
-* @counter: line_counter
-* @file: poiner to monty file
-* @content: line content
-* Return: no return
-*/
-int execute(char *content, stack_t **stack, unsigned int counter, FILE *file)
-{
-	instruction_t opst[] = {
-		{"push", add_push}, {"pall", pall}, {"pint", pint},
-				{"pop", pop},
-				{"swap", swap},
-				{"add", add},
-				{"nop", nop},
-				{"sub", sub},
-				{"div", div},
-				{"mul", mul},
-				{"mod", mod},
-				{"pchar", pchar},
-				{"pstr", pstr},
-				{"rotl", rotl},
-				{"rotr", rotr},
-				{"queue", queue},
-				{"stack", stack},
-				{"add_queus", add_queus},
-				{NULL, NULL},
-				};
-	unsigned int i = 0;
-	char *op;
 
-	op = strtok(content, " \n\t");
-	if (op && op[0] == '#')
-		return (0);
-	bus.arg = strtok(NULL, " \n\t");
-	while (opst[i].opcode && op)
+/**
+ * excute - Handle the execution of different opcodes
+ * @opcode: Opcode to be executed
+ * @hd: Double pointer to the top of stack
+ * @num: Number of line
+ */
+void excute(stack_t **hd, char *opcode, unsigned int num)
+{
+	if (strcmp(opcode, "pall") == 0)
+		pall(*hd);
+	else if (strcmp(opcode, "pint") == 0)
+		pint(*hd, num);
+	else if (strcmp(opcode, "pop") == 0)
+		pop(hd, num);
+	else if (strcmp(opcode, "sub") == 0)
+		sub(hd, num);
+	else if (strcmp(opcode, "div") == 0)
+		stack_div(hd, num);
+	else if (strcmp(opcode, "mul") == 0)
+		mul(hd, num);
+	else if (strcmp(opcode, "mod") == 0)
+		mod(hd, num);
+	else if (strcmp(opcode, "pchar") == 0)
+		pchar(hd, num);
+	else if (strcmp(opcode, "pstr") == 0)
+		pstr(hd);
+	else if (strcmp(opcode, "add") == 0)
+		add(hd, num);
+	else if (strcmp(opcode, "nop") == 0)
+		nop(hd, num);
+	else if (strcmp(opcode, "swap") == 0)
+		swap(hd, num);
+	else if (strcmp(opcode, "rotl") == 0)
+		rotl(hd);
+	else if (strcmp(opcode, "rotr") == 0)
+		rotr(hd);
+	else if (strcmp(opcode, "stack") == 0)
+		nop(hd, num);
+	else
 	{
-		if (strcmp(op, opst[i].opcode) == 0)
-		{	opst[i].f(stack, counter);
-			return (0);
-		}
-		i++;
+		fprintf(stderr, "L%u: unknown instruction %s\n", num, opcode);
+		free_list(*hd);
+		exit(EXIT_FAILURE);
 	}
-	if (op && opst[i].opcode == NULL)
-	{ fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
-		fclose(file);
-		free(content);
-		free_list(*stack);
-		exit(EXIT_FAILURE); }
-	return (1);
 }
