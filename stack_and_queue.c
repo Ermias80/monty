@@ -12,45 +12,35 @@ void stack(stack_t **ptr, char *opcode, unsigned int num)
 	int value;
 	char *str = NULL, *delim = " \n\t\r";
 
-	switch (opcode[0])
+	if (strcmp(opcode, "stack") == 0)
 	{
-		case 's':
-			if (strcmp(opcode, "stack") == 0)
-			{
-				FIFO = 0;
-				return;
-			}
-			else if (strcmp(opcode, "queue") == 0)
-			{
-				FIFO = 1;
-				return;
-			}
-			break;
-		case 'p':
-			if (strcmp(opcode, "push") == 0)
-			{
-				str = strtok(NULL, delim);
-				if (valid_int(str) == 0)
-				{
-					fprintf(stderr, "L%u: usage: push integer\n", num);
-					free_list(*ptr);
-					exit(EXIT_FAILURE);
-				}
-				value = atoi(str);
-				if (FIFO)
-					queue(ptr, value);
-				else
-					push(ptr, value);
-				return;
-			}
-			break;
-		default:
-			excute(ptr, opcode, num);
-			return;
+		FIFO = 0;
+		return;
 	}
+	else if (strcmp(opcode, "queue") == 0)
+	{
+		FIFO = 1;
+		return;
+	}
+	if (strcmp(opcode, "push") == 0)
+	{
+		str = strtok(NULL, delim);
+		if (valid_int(str) == 0)
+		{
+			fprintf(stderr, "L%u: usage: push integer\n", num);
+			free_list(*ptr);
+			exit(EXIT_FAILURE);
+		}
+		value = atoi(str);
+		if (FIFO)
+			queue(ptr, value);
+		else
+			push(ptr, value);
+	}
+	else
+		excute(ptr, opcode, num);
 }
-/**
- * valid_int - checks if a string is a valid integer
+ /** valid_int - checks if a string is a valid integer
  * @str: string to be checked
  * Return: 1 if valid, 0 if not
  */
