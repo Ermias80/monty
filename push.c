@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * push - Push an element to top of stack
  * @hd: Double pointer to the top of stack
@@ -8,7 +7,6 @@
 void push(stack_t **hd, int d)
 {
 	stack_t *stack = malloc(sizeof(stack_t));
-
 	if (stack == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
